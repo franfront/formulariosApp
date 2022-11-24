@@ -24,7 +24,7 @@
         <div class="col-sm-9">
           <input type="email" formControlName="email" class="form-control" placeholder="Email" />
           <span *ngIf="noValid('email')" class="form-text text-danger">
-           El correo es obligatorio</span
+           {{emailErrorMsg}}</span
           >
         </div>
       </div>
@@ -36,7 +36,11 @@
             type="text"
             class="form-control"
             placeholder="Nombre de usuario"
+            formControlName="username"
           />
+          <span *ngIf="noValid('username')" class="form-text text-danger">
+            El username no puede ser strider</span
+          >
         </div>
       </div>
 
@@ -47,24 +51,32 @@
             type="password"
             class="form-control"
             placeholder="Contraseña de la cuenta"
+            formControlName="password"
           />
+          <span *ngIf="noValid('password')" class="form-text text-danger">
+            La contraseña debe ser mas de 6 caracteres</span
+          >
         </div>
       </div>
 
       <div class="row mb-3">
-        <label class="col-sm-3 col-form-label"> Repetir Contraseña </label>
+        <label class="col-sm-3 col-form-label"> Repetir Password </label>
         <div class="col-sm-9">
           <input
             type="password"
             class="form-control"
             placeholder="Repetir Contraseña"
+            formControlName="password2"
           />
+          <span *ngIf="noValid('password2')" class="form-text text-danger">
+            Las contraseñas deben ser iguales</span
+          >
         </div>
       </div>
 
       <div class="row">
         <div class="col">
-            <button type="submit" class="btn btn-primary float-end">
+            <button type="submit" class="btn btn-primary float-end" [disabled]="miForm.pending">
                 Crear
             </button>
         </div>
@@ -74,6 +86,22 @@
 </div>
 
 <h2>Form Valid: {{miForm.valid}}</h2>
+<h2>Form Status: {{miForm.status}}</h2>
+<h2>Form errors</h2>
+<pre>{{miForm.errors | json}}</pre>
+
 
 <h2>Nombre</h2>
 <pre>{{miForm.controls["nombre"].errors | json}}</pre>
+
+<h2>Email</h2>
+<pre>{{miForm.controls["email"].errors | json}}</pre>
+
+<h2>Username</h2>
+<pre>{{miForm.controls["username"].errors | json}}</pre>
+
+<h2>Password</h2>
+<pre>{{miForm.controls["password"].errors | json}}</pre>
+
+<h2>Repetir password</h2>
+<pre>{{miForm.controls["password2"].errors | json}}</pre>
